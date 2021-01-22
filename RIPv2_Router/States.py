@@ -90,7 +90,7 @@ class StartUp(State):
             # introducem header-ul si intrarile din tabela intr-un pachet
             # pe care il vom trimite vecinilor prin multicast
             packet = RIPPacket(rtes=entries, header=local_header)
-            sock.sendto(packet.serialize(), ('224.0.0.1', 520))
+            sock.sendto(packet.serialize(), ('224.0.0.9', 520))
 
             # retinem socket-urile pentru interfete
             self.fsm.router.router_sockets.append(sock)
