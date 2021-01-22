@@ -28,12 +28,12 @@ class Router:
         self.multicast_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # creeaza un socket
         self.multicast_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  # optiune pentru a putea reutiliza acelasi port
 
-        group = socket.inet_aton('224.0.0.1')  # transforma adresa IP pentru multicast in 4 stringuri pe 32 de biti
+        group = socket.inet_aton('224.0.0.9')  # transforma adresa IP pentru multicast in 4 stringuri pe 32 de biti
         mreq = struct.pack('4sL', group, socket.INADDR_ANY)
         self.multicast_socket.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
 
         self.multicast_socket.setsockopt(socket.IPPROTO_IP,socket.IP_MULTICAST_LOOP,0)
-        self.multicast_socket.bind(('224.0.0.1',520))
+        self.multicast_socket.bind(('224.0.0.9',520))
 
         # tabela de routare
         self.routing_table = dict()
@@ -205,7 +205,7 @@ class Router:
 
             # trimitem pachet-ul vecinilor pe baza de multicast
             p = RIPPacket(header=local_header,rtes=entries1)
-            sock.sendto(p.serialize(), ('224.0.0.1', 520))
+            sock.sendto(p.serialize(), ('224.0.0.9', 520))
 
         print_message("Message Sent To Routers")
 
